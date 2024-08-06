@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niñas Madres Interactivo</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Evolución de Niñas Madres Casadas y Convivientes (2012-2023)</h1>
+    <label for="filter">Selecciona una categoría:</label>
+    <select id="filter" onchange="updateChart()">
+        <option value="all">Todas</option>
+        <option value="convivientes">Niñas convivientes y madres</option>
+        <option value="casadas">Niñas casadas y madres</option>
+    </select>
+    <div id="plot"></div>
+    <script>
+        // Datos de la hoja de cálculo
+        const convivientesData = {
+            x: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+            y: [615, 1036, 172, 240, 175, 173, 165, 303, 372, 370, 342, 285],
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Niñas convivientes y madres',
+            line: {
+                color: '#FF9900'  // Naranja
+            },
+            marker: {
+                color: '#FF9900'  // Naranja
+            }
+        };
+
+        const casadasData = {
+            x: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+            y: [7, 23, 18, 20, 15, 18, 21, 29, 12, 8, 10, 6],
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Niñas casadas y madres',
+            line: {
+                color: '#FFD700'  // Amarillo
+            },
+            marker: {
+                color: '#FFD700'  // Amarillo
+            }
+        };
+
+        const layout = {
+            title: 'Evolución de Niñas Madres Casadas y Convivientes (2012-2023)',
+            xaxis: {
+                title: 'Año'
+            },
+            yaxis: {
+                title: 'Cantidad de Niñas'
+            }
+        };
+
+        // Función para actualizar el gráfico según el filtro
+        function updateChart() {
+            const filter = document.getElementById('filter').value;
+            let data = [];
+
+            if (filter === 'all') {
+                data = [convivientesData, casadasData];
+            } else if (filter === 'convivientes') {
+                data = [convivientesData];
+            } else if (filter === 'casadas') {
+                data = [casadasData];
+            }
+
+            Plotly.newPlot('plot', data, layout);
+        }
+
+        // Generar el gráfico inicial con todos los datos
+        updateChart();
+    </script>
+</body>
+</html>
+
+
+
